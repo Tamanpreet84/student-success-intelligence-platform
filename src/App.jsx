@@ -27,18 +27,18 @@ import { FAQPage } from './components/Pages/FAQPage';
 import { DEMO_PRESETS } from './data/mockData';
 
 export function AppContent() {
-  const [activeTab, setActiveTab] = useState('home');
+  // Default active tab is 'auth' (Login / Sign Up -> Details -> AI Predictor)
+  const [activeTab, setActiveTab] = useState('auth');
   const [student, setStudent] = useState(DEMO_PRESETS.high_achiever);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState('login');
 
   const openAuthModal = (mode = 'login') => {
-    // Navigate directly to Auth Page for full student detail inputs
     setActiveTab('auth');
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-300">
       
       {/* Navbar */}
       <Navbar 
@@ -49,8 +49,8 @@ export function AppContent() {
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {activeTab === 'home' && <LandingPage setActiveTab={setActiveTab} openAuthModal={openAuthModal} />}
         {activeTab === 'auth' && <AuthPage setActiveTab={setActiveTab} setStudent={setStudent} />}
+        {activeTab === 'home' && <LandingPage setActiveTab={setActiveTab} openAuthModal={openAuthModal} />}
         {activeTab === 'dashboard' && <OverviewDashboard student={student} setActiveTab={setActiveTab} />}
         {activeTab === 'cgpa' && <CGPAPredictor student={student} setStudent={setStudent} />}
         {activeTab === 'placement' && <PlacementPredictor student={student} setStudent={setStudent} />}
@@ -82,10 +82,10 @@ export function AppContent() {
       />
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950/90 py-6 text-center text-xs text-slate-500">
+      <footer className="border-t border-slate-200 dark:border-slate-900 bg-white/80 dark:bg-slate-950/90 py-6 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>Student Success Intelligence Platform • Startup Product Suite v2.6</span>
-          <span className="text-slate-400 font-medium">Powered by Python ML & React 18</span>
+          <span>Student Success Intelligence Platform • AI Placement & Career Platform v2.7</span>
+          <span className="text-slate-600 dark:text-slate-400 font-medium">Powered by Python ML & React 18</span>
         </div>
       </footer>
 
