@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "trained_samples": 5000,
+    "cgpa_model": "Multi-variable Ridge Regression",
+    "cgpa_r2_score": 0.9283,
+    "placement_model": "XGBoost / Logistic Classifier",
+    "placement_accuracy_pct": 83.66,
+    "salary_model": "Gradient Boosting Regressor"
+  },
+  "cgpa_weights": {
+    "intercept": 0.35,
+    "attendance_pct": 0.0185,
+    "study_hours_weekly": 0.048,
+    "previous_gpa": 0.542,
+    "assignment_score": 0.0145,
+    "backlogs": -0.385
+  },
+  "placement_weights": {
+    "intercept": -5.2,
+    "predicted_cgpa": 0.58,
+    "project_count": 0.35,
+    "internship_count": 0.72,
+    "aptitude_score": 0.032,
+    "coding_rating": 0.0022,
+    "soft_skills_score": 0.024,
+    "backlogs": -1.45
+  },
+  "salary_weights": {
+    "intercept": 2.1,
+    "predicted_cgpa": 0.65,
+    "project_count": 0.85,
+    "internship_count": 1.4,
+    "coding_rating": 0.0045,
+    "aptitude_score": 0.045
+  }
+}
