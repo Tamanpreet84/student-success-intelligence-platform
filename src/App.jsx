@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
+import { ThemeProvider } from './context/ThemeContext';
+import { ToastProvider } from './context/ToastContext';
+import { AuthProvider } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
+import { AuthModal } from './components/Auth/AuthModal';
+import { ProfilePage } from './components/Auth/ProfilePage';
+import { LandingPage } from './components/Home/LandingPage';
 import { OverviewDashboard } from './components/Dashboard/OverviewDashboard';
 import { CGPAPredictor } from './components/CGPAPredictor/CGPAPredictor';
 import { PlacementPredictor } from './components/PlacementPredictor/PlacementPredictor';
@@ -8,44 +14,92 @@ import { InternshipMatcher } from './components/InternshipMatcher/InternshipMatc
 import { StudyPlanGenerator } from './components/StudyPlanGenerator/StudyPlanGenerator';
 import { CertificationSuggest } from './components/CertificationSuggest/CertificationSuggest';
 import { AICounselor } from './components/AICounselor/AICounselor';
+import { ResumeAnalyzer } from './components/Resume/ResumeAnalyzer';
+import { ResumeBuilder } from './components/Resume/ResumeBuilder';
+import { MockInterview } from './components/MockInterview/MockInterview';
+import { CareerRoadmap } from './components/Roadmap/CareerRoadmap';
+import { CompanyEligibility } from './components/Eligibility/CompanyEligibility';
+import { GithubLeetcodeTracker } from './components/Trackers/GithubLeetcodeTracker';
+import { AboutPage } from './components/Pages/AboutPage';
+import { FAQPage } from './components/Pages/FAQPage';
+
 import { DEMO_PRESETS } from './data/mockData';
 
-export function App() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+export function AppContent() {
+  const [activeTab, setActiveTab] = useState('home');
   const [student, setStudent] = useState(DEMO_PRESETS.high_achiever);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState('login');
+
+  const openAuthModal = (mode = 'login') => {
+    setAuthModalMode(mode);
+    setAuthModalOpen(true);
+  };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-300">
       
-      {/* Top Navbar */}
+      {/* Navbar */}
       <Navbar 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
-        currentStudent={student}
-        setStudent={setStudent}
+        openAuthModal={openAuthModal}
       />
 
-      {/* Main Content Area */}
+      {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {activeTab === 'home' && <LandingPage setActiveTab={setActiveTab} openAuthModal={openAuthModal} />}
         {activeTab === 'dashboard' && <OverviewDashboard student={student} setActiveTab={setActiveTab} />}
         {activeTab === 'cgpa' && <CGPAPredictor student={student} setStudent={setStudent} />}
         {activeTab === 'placement' && <PlacementPredictor student={student} setStudent={setStudent} />}
+        {activeTab === 'resume' && (
+          <div className="space-y-12">
+            <ResumeAnalyzer />
+            <ResumeBuilder />
+          </div>
+        )}
+        {activeTab === 'mockinterview' && <MockInterview />}
         {activeTab === 'skillgap' && <SkillGapAnalyzer student={student} setStudent={setStudent} />}
+        {activeTab === 'roadmap' && <CareerRoadmap />}
+        {activeTab === 'eligibility' && <CompanyEligibility student={student} />}
+        {activeTab === 'trackers' && <GithubLeetcodeTracker student={student} />}
         {activeTab === 'internships' && <InternshipMatcher student={student} />}
         {activeTab === 'studyplan' && <StudyPlanGenerator student={student} />}
         {activeTab === 'certifications' && <CertificationSuggest student={student} />}
         {activeTab === 'counselor' && <AICounselor student={student} />}
+        {activeTab === 'profile' && <ProfilePage setActiveTab={setActiveTab} />}
+        {activeTab === 'about' && <AboutPage />}
+        {activeTab === 'faq' && <FAQPage />}
       </main>
 
-      {/* Sleek Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950/80 py-6 text-center text-xs text-slate-500">
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={authModalOpen} 
+        onClose={() => setAuthModalOpen(false)}
+        initialMode={authModalMode}
+      />
+
+      {/* Footer */}
+      <footer className="border-t border-slate-900 bg-slate-950/90 py-6 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>Student Success Intelligence Platform • AI Machine Learning & Career Analytics</span>
-          <span className="text-slate-400 font-medium">Powered by Python ML (Scikit-Learn, XGBoost) & React</span>
+          <span>Student Success Intelligence Platform • Startup Product Suite v2.5</span>
+          <span className="text-slate-400 font-medium">Powered by Python ML & React 18</span>
         </div>
       </footer>
 
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <ThemeProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
+      </ToastProvider>
+    </ThemeProvider>
   );
 }
 

@@ -7,7 +7,44 @@
     background-color: #090d16;
     color: #f1f5f9;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
+}
+
+/* Light Mode Overrides */
+html.light body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+html.light .glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+}
+
+html.light .text-white {
+  color: #0f172a !important;
+}
+
+html.light .text-slate-400 {
+  color: #64748b !important;
+}
+
+html.light .text-slate-300 {
+  color: #334155 !important;
+}
+
+html.light .bg-slate-900 {
+  background-color: #f1f5f9 !important;
+}
+
+html.light .bg-slate-950 {
+  background-color: #ffffff !important;
+}
+
+html.light .border-slate-800 {
+  border-color: #e2e8f0 !important;
 }
 
 /* Glassmorphism card styles */
@@ -27,11 +64,6 @@
   border-color: rgba(99, 102, 241, 0.4);
   box-shadow: 0 12px 40px 0 rgba(99, 102, 241, 0.15);
   transform: translateY(-2px);
-}
-
-/* Custom glowing badge */
-.glow-badge {
-  box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
 }
 
 /* Custom Scrollbar */
