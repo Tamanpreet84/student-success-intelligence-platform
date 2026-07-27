@@ -14,13 +14,14 @@ import {
   Github,
   Sun,
   Moon,
-  User,
+  UserCheck,
   LogOut,
   Menu,
   X,
   Home,
   HelpCircle,
-  TrendingUp
+  TrendingUp,
+  UserPlus
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
@@ -32,6 +33,7 @@ export const Navbar = ({ activeTab, setActiveTab, openAuthModal }) => {
 
   const mainTabs = [
     { id: 'home', label: 'Home', icon: Home },
+    { id: 'auth', label: 'Login / Details', icon: UserPlus },
     { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
     { id: 'cgpa', label: 'CGPA Sim', icon: GraduationCap },
     { id: 'placement', label: 'Placement & Salary', icon: Target },
@@ -84,29 +86,26 @@ export const Navbar = ({ activeTab, setActiveTab, openAuthModal }) => {
               {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-400" />}
             </button>
 
-            {/* Auth Profile Button */}
-            {currentUser ? (
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => setActiveTab('profile')}
-                  className="flex items-center space-x-2 p-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 transition-all"
-                >
-                  <img 
-                    src={currentUser.avatarUrl} 
-                    alt={currentUser.name} 
-                    className="w-7 h-7 rounded-lg object-cover border border-indigo-500"
-                  />
-                  <span className="text-xs font-bold text-slate-200 hidden md:inline px-1">
-                    {currentUser.name.split(' ')[0]}
-                  </span>
-                </button>
-              </div>
-            ) : (
+            {/* Login / Sign Up CTA */}
+            <button
+              onClick={() => setActiveTab('auth')}
+              className="px-3.5 py-2 rounded-xl text-xs font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-md shadow-indigo-500/20 transition-all flex items-center gap-1.5"
+            >
+              <UserPlus className="w-4 h-4" />
+              <span>Login / Enter Details</span>
+            </button>
+
+            {/* Profile Avatar if logged in */}
+            {currentUser && (
               <button
-                onClick={() => openAuthModal('login')}
-                className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md transition-all"
+                onClick={() => setActiveTab('profile')}
+                className="p-1 rounded-xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 transition-all"
               >
-                Sign In
+                <img 
+                  src={currentUser.avatarUrl} 
+                  alt={currentUser.name} 
+                  className="w-7 h-7 rounded-lg object-cover border border-indigo-500"
+                />
               </button>
             )}
 

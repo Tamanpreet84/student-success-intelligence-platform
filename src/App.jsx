@@ -3,6 +3,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { ToastProvider } from './context/ToastContext';
 import { AuthProvider } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
+import { AuthPage } from './components/Auth/AuthPage';
 import { AuthModal } from './components/Auth/AuthModal';
 import { ProfilePage } from './components/Auth/ProfilePage';
 import { LandingPage } from './components/Home/LandingPage';
@@ -32,8 +33,8 @@ export function AppContent() {
   const [authModalMode, setAuthModalMode] = useState('login');
 
   const openAuthModal = (mode = 'login') => {
-    setAuthModalMode(mode);
-    setAuthModalOpen(true);
+    // Navigate directly to Auth Page for full student detail inputs
+    setActiveTab('auth');
   };
 
   return (
@@ -49,6 +50,7 @@ export function AppContent() {
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {activeTab === 'home' && <LandingPage setActiveTab={setActiveTab} openAuthModal={openAuthModal} />}
+        {activeTab === 'auth' && <AuthPage setActiveTab={setActiveTab} setStudent={setStudent} />}
         {activeTab === 'dashboard' && <OverviewDashboard student={student} setActiveTab={setActiveTab} />}
         {activeTab === 'cgpa' && <CGPAPredictor student={student} setStudent={setStudent} />}
         {activeTab === 'placement' && <PlacementPredictor student={student} setStudent={setStudent} />}
@@ -72,7 +74,7 @@ export function AppContent() {
         {activeTab === 'faq' && <FAQPage />}
       </main>
 
-      {/* Auth Modal */}
+      {/* Auth Modal Fallback */}
       <AuthModal 
         isOpen={authModalOpen} 
         onClose={() => setAuthModalOpen(false)}
@@ -82,7 +84,7 @@ export function AppContent() {
       {/* Footer */}
       <footer className="border-t border-slate-900 bg-slate-950/90 py-6 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>Student Success Intelligence Platform • Startup Product Suite v2.5</span>
+          <span>Student Success Intelligence Platform • Startup Product Suite v2.6</span>
           <span className="text-slate-400 font-medium">Powered by Python ML & React 18</span>
         </div>
       </footer>
