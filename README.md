@@ -1,68 +1,43 @@
 # Student Success Intelligence Platform 🎓🚀
 
-A complete, AI-driven educational analytics and career progression platform that leverages Machine Learning algorithms, predictive analytics, and an interactive dashboard to maximize student potential and career readiness.
+A complete, startup-ready AI Educational Analytics & Career Progression Platform that combines Machine Learning (CGPA Predictor, Placement Classifier, Salary Estimator), NLP-assisted ATS Resume Scanning, AI Mock Interviews, GitHub/LeetCode Trackers, Company Eligibility Checkers, and Interactive Skill Gap Radars.
 
-- **🌐 Live Demo (Vercel)**: [https://student-success-intelligence-platform-gig9tcory-taman11.vercel.app](https://student-success-intelligence-platform-gig9tcory-taman11.vercel.app)
+- **🌐 Live Vercel App**: [https://student-success-intelligence-platfo.vercel.app](https://student-success-intelligence-platfo.vercel.app)
 - **🐙 GitHub Repository**: [https://github.com/Tamanpreet84/student-success-intelligence-platform](https://github.com/Tamanpreet84/student-success-intelligence-platform)
 
 ---
 
-## 🌟 Key Features
+## 🌟 Comprehensive Startup Feature Suite
 
-1. **Academic CGPA Predictor & Simulator**:
-   - Multi-variable Regression Model (`ml_engine/train_models.py`) trained on student dataset (R² Score: **0.9283**).
-   - Real-time sliders for class attendance %, weekly self-study hours, previous GPA, assignment scores, and backlogs.
-   - Granular factor impact breakdown (`+` / `-` CGPA score contribution).
+### 1. 🔐 Authentication & User Profile System
+- **Auth Flow**: Login, Sign Up, Forgot Password recovery modal, and Google OAuth simulation.
+- **User Profile Page**: Personal details editor, avatar photo update simulation, security password change, and persistent prediction/scan history.
 
-2. **Placement Probability & Salary Estimator**:
-   - Machine Learning Classification (ROC-AUC: **83.66%**) & Salary Regression Engine.
-   - Evaluates campus recruitment readiness, tier eligibility (Tier 1 Product, Tier 2 Growth, Tier 3 Service), and expected starting salary package (`₹ LPA` & `$ USD` equivalent).
+### 2. 📊 Machine Learning Core Engine (`ml_engine/`)
+- **CGPA Predictor & Simulator**: Multi-variable Ridge Regression model (**R² Score = 0.9283**) with real-time sliders for attendance %, study hours, GPA, assignments, and backlog penalties.
+- **Placement Probability Model**: XGBoost & Logistic Classifier (**ROC-AUC = 83.66%**) forecasting campus recruitment readiness.
+- **Salary Estimator**: Gradient Boosting Regressor predicting entry-level packages (`₹ LPA` & `$ USD` equivalent).
 
-3. **Skill Gap Radar & Competency Analyzer**:
-   - Overlays student technical skills against industry benchmark job roles (Full Stack Developer, Data Scientist / ML Engineer, Cloud & DevOps Engineer, Product Manager, Cybersecurity Analyst).
-   - Interactive Recharts Radar & Bar charts with target skill gap highlights.
+### 3. 📄 AI ATS Resume Analyzer & Live Resume Builder
+- **ATS Resume Scanner**: Evaluates ATS compatibility score (0-100%), keyword density against target role, formatting breakdown, and missing keywords.
+- **Live Resume Builder**: Form fields with live A4 preview and print-optimized CSS for instant PDF export.
 
-4. **Smart Internship Matcher**:
-   - Algorithmic matching score calculated against live internship openings based on CGPA, project count, aptitude score, and skill requirements.
+### 4. 🎯 Career Tools & Practice Modules
+- **AI Mock Interview Simulator**: Question bank with instant STAR methodology scoring and actionable technical feedback.
+- **Company Eligibility Checker**: Evaluates eligibility for Google, Amazon, Microsoft, TCS, Infosys, Zomato, Razorpay against student CGPA, backlogs, and aptitude.
+- **Skill Gap Radar & Matrix**: Overlays student technical skills against industry standards for Full Stack, Data Science, DevOps, APM, and Cybersecurity.
+- **Career Roadmap Generator**: Phase-by-phase tech milestone learning paths with duration and core topic checklists.
+- **GitHub & LeetCode Tracker**: Evaluates open-source contribution activity, language distribution pie chart, and LeetCode problem difficulty stats.
 
-5. **Automated AI Study Plan Generator**:
-   - Personalized 7-Day learning schedule targeting student's weekly study commitment with daily hour targets and interactive task checklists.
-
-6. **Industry Certification Recommender**:
-   - High-impact certification recommendations (AWS, TensorFlow/Coursera, Meta, Docker, GCP) tailored to plug specific student skill gaps.
-
-7. **AI Career Counselor Chatbot**:
-   - Profile-aware interactive counselor providing actionable academic advice, mock interview tips, and resume optimization guidelines.
+### 5. 🎨 UI/UX & Responsive Experience
+- **Dark / Light Theme System**: Built-in toggle with `localStorage` persistence.
+- **Global Toast Notifications**: Floating toast system for instant user feedback (`success`, `error`, `info`, `warning`).
+- **Mobile Drawer Menu**: 100% responsive navigation across mobile, tablet, and desktop viewports.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Frontend & UI**: React 18, Vite, Tailwind CSS, Lucide Icons, Recharts Analytics.
-- **Machine Learning Engine**: Python, Pandas, NumPy, Scikit-learn, XGBoost logic.
-- **Deployment**: Vercel Cloud Platform.
-- **Version Control**: Git & GitHub CLI (`gh`).
-
----
-
-## 🚀 Quick Start & Local Setup
-
-### 1. Install Node Dependencies
-```bash
-npm install
-```
-
-### 2. Run Python ML Model Pipeline
-```bash
-# Generate synthetic student dataset
-py ml_engine/dataset_generator.py
-
-# Train models & export weights
-py ml_engine/train_models.py
-```
-
-### 3. Start Local Development Server
-```bash
-npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+- **Frontend**: React 18, Vite, Tailwind CSS, Lucide Icons, Recharts.
+- **Machine Learning**: Python, Pandas, NumPy, Scikit-learn, XGBoost logic.
+- **Hosting & CI/CD**: Vercel Cloud Platform connected to GitHub `main` branch.
