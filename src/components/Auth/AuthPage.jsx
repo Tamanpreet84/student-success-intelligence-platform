@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Mail, Lock, GraduationCap, ArrowRight, CheckCircle2, ShieldCheck, Sparkles, Key, Save, BookOpen, ArrowLeft } from 'lucide-react';
+import { User, Mail, Lock, GraduationCap, ArrowRight, CheckCircle2, ShieldCheck, Sparkles, Key, Save, BookOpen, ArrowLeft, Code } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import { JOB_ROLES } from '../../data/mockData';
@@ -38,6 +38,14 @@ export const AuthPage = ({ setActiveTab, setStudent }) => {
       [field]: value
     }));
   };
+
+  const codingPresets = [
+    { rating: 1000, label: '1000 (Beginner)' },
+    { rating: 1400, label: '1400 (Specialist)' },
+    { rating: 1650, label: '1650 (Knight)' },
+    { rating: 1900, label: '1900 (Master)' },
+    { rating: 2150, label: '2150 (Grandmaster)' }
+  ];
 
   const handleAuthStepSubmit = (e) => {
     e.preventDefault();
@@ -100,26 +108,26 @@ export const AuthPage = ({ setActiveTab, setStudent }) => {
     <div className="space-y-6 max-w-3xl mx-auto py-4">
       
       {/* Step Indicator Progress Bar */}
-      <div className="flex items-center justify-between glass-panel p-4 rounded-2xl border border-slate-800 text-xs font-bold">
+      <div className="flex items-center justify-between glass-panel p-4 rounded-2xl border border-slate-200 dark:border-slate-800 text-xs font-bold">
         <div className={`flex items-center space-x-2 ${step === 1 ? 'text-indigo-600 font-extrabold' : 'text-slate-400'}`}>
-          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step === 1 ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400'}`}>1</span>
+          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step === 1 ? 'bg-indigo-600 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}`}>1</span>
           <span>Login / Sign Up</span>
         </div>
-        <ArrowRight className="w-4 h-4 text-slate-500" />
+        <ArrowRight className="w-4 h-4 text-slate-400" />
         <div className={`flex items-center space-x-2 ${step === 2 ? 'text-indigo-600 font-extrabold' : 'text-slate-400'}`}>
-          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step === 2 ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400'}`}>2</span>
+          <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${step === 2 ? 'bg-indigo-600 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400'}`}>2</span>
           <span>Student Academic Details</span>
         </div>
-        <ArrowRight className="w-4 h-4 text-slate-500" />
+        <ArrowRight className="w-4 h-4 text-slate-400" />
         <div className="flex items-center space-x-2 text-slate-400">
-          <span className="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-xs text-slate-400">3</span>
+          <span className="w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-xs text-slate-500 dark:text-slate-400">3</span>
           <span>AI Predictor Dashboard</span>
         </div>
       </div>
 
       {/* STEP 1: LOGIN / SIGN UP PAGE */}
       {step === 1 && (
-        <div className="glass-panel p-6 sm:p-10 rounded-3xl border border-slate-800 space-y-6 animate-fade-in">
+        <div className="glass-panel p-6 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6 animate-fade-in">
           
           <div className="text-center space-y-2">
             <div className="p-3 bg-indigo-600 text-white rounded-2xl w-fit mx-auto shadow-lg shadow-indigo-500/20">
@@ -211,7 +219,7 @@ export const AuthPage = ({ setActiveTab, setStudent }) => {
 
       {/* STEP 2: STUDENT DETAILS FORM */}
       {step === 2 && (
-        <form onSubmit={handleDetailsStepSubmit} className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-6 animate-fade-in">
+        <form onSubmit={handleDetailsStepSubmit} className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 space-y-6 animate-fade-in">
           
           <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
             <div>
@@ -304,16 +312,6 @@ export const AuthPage = ({ setActiveTab, setStudent }) => {
             </div>
 
             <div className="space-y-1">
-              <label className="font-semibold text-slate-700 dark:text-slate-300">Competitive Coding Rating</label>
-              <input 
-                type="number" min="800" max="2200" step="25" required
-                value={formData.coding_rating}
-                onChange={(e) => handleChange('coding_rating', e.target.value)}
-                className="w-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl p-2.5 font-mono text-slate-900 dark:text-white"
-              />
-            </div>
-
-            <div className="space-y-1">
               <label className="font-semibold text-slate-700 dark:text-slate-300">Active Backlogs</label>
               <input 
                 type="number" min="0" max="4" required
@@ -321,6 +319,46 @@ export const AuthPage = ({ setActiveTab, setStudent }) => {
                 onChange={(e) => handleChange('backlogs', e.target.value)}
                 className="w-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl p-2.5 font-mono text-slate-900 dark:text-white"
               />
+            </div>
+          </div>
+
+          {/* Competitive Coding Rating Control with Slider AND Presets */}
+          <div className="space-y-2.5 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+            <div className="flex justify-between items-center text-xs font-bold">
+              <span className="text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                <Code className="w-4 h-4 text-emerald-600" /> Competitive Coding Rating (LeetCode / CodeChef)
+              </span>
+              <span className="text-emerald-700 dark:text-emerald-400 font-extrabold text-sm px-2.5 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/20">
+                {formData.coding_rating} Rating
+              </span>
+            </div>
+
+            <input 
+              type="range"
+              min="800"
+              max="2200"
+              step="25"
+              value={formData.coding_rating}
+              onChange={(e) => handleChange('coding_rating', parseInt(e.target.value, 10))}
+              className="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+            />
+
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block w-full">Quick Preset Rating:</span>
+              {codingPresets.map((preset) => (
+                <button
+                  key={preset.rating}
+                  type="button"
+                  onClick={() => handleChange('coding_rating', preset.rating)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all border ${
+                    formData.coding_rating === preset.rating
+                      ? 'bg-emerald-600 text-white border-emerald-500 shadow-md shadow-emerald-500/20'
+                      : 'bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-800 hover:border-emerald-500'
+                  }`}
+                >
+                  {preset.label}
+                </button>
+              ))}
             </div>
           </div>
 
